@@ -12,9 +12,9 @@ class Server:
             self.server_socket.listen(self.maximum_connections)
             print(f"Host: {self.host} \t Port: {self.port} \t Maximum Connection: {self.maximum_connections}")
             print("Server started.")
+            conn, address = self.server_socket.accept() 
+            print("Connection from: " + str(address))
             while True:
-                conn, address = self.server_socket.accept() 
-                print("Connection from: " + str(address))
                 data = conn.recv(1024).decode()
                 if not data:
                     break
