@@ -9,6 +9,7 @@ class Client:
     def establish_connection(self):
         try:
             self.client_socket.connect((self.host, self.port))
+            print("Connection established.")
             message = input(" -> ") 
 
             while message.lower().strip() != 'bye':

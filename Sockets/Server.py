@@ -5,10 +5,12 @@ class Server:
         self.host='127.0.0.1'
         self.port=port
         self.server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        self.maximum_connections=5
     def start_server(self):
         try:
             self.server_socket.bind((self.host, self.port)) 
-            self.server_socket.listen(5)
+            self.server_socket.listen(self.maximum_connections)
+            print(f"Host: {self.host} \t Port: {self.port} \t Maximum Connection: {self.maximum_connections}")
             print("Server started.")
             while True:
                 conn, address = self.server_socket.accept() 
@@ -25,8 +27,3 @@ class Server:
             print(ex)
             print("Failed to establish connection.")
          
-
-
-if __name__ == '__main__':
-    server=Server(port=8089)
-    server.start_server()
