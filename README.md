@@ -8,6 +8,16 @@ Ports is a cli tool developed using python. It's current functionality includes 
 
 - Server/Client chat application
 
+## Future updates
+
+- File Transfer Application
+- Real-Time Data Streaming
+- Remote Code Execution
+- P2P File Sharing
+- Multiplayer Game
+- Chatroom Update
+- Remote Desktop Control
+
 
 ## Installation
 
