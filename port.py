@@ -21,7 +21,7 @@ def get_client_info():
     ip=IP()
     print(ip.get_ip_address())
 
-@app.command("host")
+@app.command("hostname")
 def get_client_info():
     ip=IP()
     print(ip.get_hostname())
