@@ -1,32 +1,31 @@
 import socket
 
 class Client:
-    def __init__(self,host:str,port:int) -> None:
-        self.host=host
-        self.port=port
-        self.client_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    def __init__(self, host: str, port: int) -> None:
+        self.host = host
+        self.port = port
+        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def establish_connection(self):
         try:
             self.client_socket.connect((self.host, self.port))
-            print("Connection established.")
-            message = input(" -> ") 
+            print(self.client_socket.recv(2048).decode())
 
-            while message.lower().strip() != 'bye':
+            while True:
+                message = input(" -> ")
+
+                if message.lower().strip() == 'bye':
+                    break
+
                 self.client_socket.send(message.encode())
-                data = self.client_socket.recv(1024).decode()
+                data = self.client_socket.recv(2048).decode()
 
                 print('Received from server: ' + data)
 
-                message = input(" -> ") 
+            self.client_socket.close()
 
-            self.client_socket.close() 
         except Exception as ex:
             print(ex)
             print("Failed to establish connection.")
+
         
-
-
-if __name__ == '__main__':
-    client=Client(host='127.0.0.1',port=8089)
-    client.establish_connection()
