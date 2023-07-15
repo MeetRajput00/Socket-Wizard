@@ -18,6 +18,8 @@ Ports is a cli tool developed using python. It's current functionality includes 
 - P2P File Sharing
 - Multiplayer Game
 - Remote Desktop Control
+- Mass IP/Host Scanner
+- Mass Port Scanner
 
 
 ## Installation
