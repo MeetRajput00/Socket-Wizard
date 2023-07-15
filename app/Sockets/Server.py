@@ -1,6 +1,6 @@
 import socket
 import threading
-
+from tqdm import tqdm
 class Server:
     def __init__(self, port: int, connections: int,broadcast: int) -> None:
         self.host = '127.0.0.1'
@@ -17,14 +17,41 @@ class Server:
         while True:
             try:
                 message = conn.recv(2048).decode()
-                if message:
+                if message=='ft-mode':
+                    response=input("Client is requesting file transfer.(y/n)-> ")
+                    if response=='y':
+                        with self.print_lock:
+                            conn.send('y'.encode())
+                            SIZE = 1024
+                            FORMAT = "utf-8"
+                            data = conn.recv(SIZE).decode(FORMAT)
+                            item = data.split("_")
+                            FILENAME = item[0]
+                            FILESIZE = int(item[1])
+                            conn.send(f'{FILENAME}_{FILESIZE}'.encode(FORMAT))
+                            bar = tqdm(total=FILESIZE,initial=0,desc=f"Receiving {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
+                            with open(f"recv_{FILENAME}", "wb") as f:
+                                while True:
+                                    data = conn.recv(SIZE).decode(FORMAT)               
+                                    if data=='\eof':
+                                        break
+                                    f.write(data.encode(FORMAT))
+                        
+                                    bar.update(len(data))
+                            
+                            print("File received.")
+                    elif response=='n':
+                        conn.send('n'.encode())
+                    else:
+                        break
+                elif message:
                     print("<" + addr[0] + "> " + message)
                     if(self.is_broadcast_enabled==1):
                         self.broadcast(message, conn)
                     message_to_send = input("->")
+                    conn.send(message_to_send.encode())
                     if(self.is_broadcast_enabled==1):
                         self.broadcast(message_to_send,conn)
-                    conn.send(message_to_send.encode())
 
                 else:
                     self.remove(conn)
@@ -53,7 +80,6 @@ class Server:
             self.server_socket.listen(self.maximum_connections)
             print(f"Host: {self.host}\t Port: {self.port}\t Maximum Connection: {self.maximum_connections}")
             print("Server started.")
-
             while True:
                 conn, addr = self.server_socket.accept()
                 self.list_of_clients.append(conn)
