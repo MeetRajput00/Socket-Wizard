@@ -2,11 +2,12 @@ import socket
 import threading
 
 class Server:
-    def __init__(self, port: int, connections: int) -> None:
+    def __init__(self, port: int, connections: int,broadcast: int) -> None:
         self.host = '127.0.0.1'
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.maximum_connections = connections
+        self.is_broadcast_enabled=broadcast
         self.list_of_clients = []
         self.print_lock = threading.Lock()
 
@@ -18,9 +19,11 @@ class Server:
                 message = conn.recv(2048).decode()
                 if message:
                     print("<" + addr[0] + "> " + message)
-                    self.broadcast(message, conn)
+                    if(self.is_broadcast_enabled==1):
+                        self.broadcast(message, conn)
                     message_to_send = input("->")
-                    self.broadcast(message_to_send,conn)
+                    if(self.is_broadcast_enabled==1):
+                        self.broadcast(message_to_send,conn)
                     conn.send(message_to_send.encode())
 
                 else:
