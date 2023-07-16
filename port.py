@@ -16,15 +16,11 @@ def start_client(host: Optional[str]='127.0.0.1', port: Optional[int]=12345):
     client=Client(host=host, port=port)
     client.establish_connection()
 
-@app.command("ip")
+@app.command("myIP")
 def get_client_info():
     ip=IP()
-    print(ip.get_ip_address())
+    print(f'IP: {ip.get_ip_address()}\t Host: {ip.get_hostname()}')
 
-@app.command("hostname")
-def get_client_info():
-    ip=IP()
-    print(ip.get_hostname())
 
 if __name__ == "__main__":
     app()    
