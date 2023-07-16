@@ -21,6 +21,7 @@ class Client:
         try:
             self.client_socket.connect((self.host, self.port))
             print("----for file transfer: send ft-mode to server----")
+            print("----for rce: send rce-mode to server----(Seperate each parameter with a > .e.g. ping>www.google.com or echo>Hello, world)")
             print(f'[+]{self.host} connected.')
 
             while True:
@@ -28,7 +29,15 @@ class Client:
 
                 self.client_socket.send(self.encryption.encrypt(message).encode())
                 data = self.encryption.decrypt(self.client_socket.recv(2048).decode())
-                if message=='ft-mode-upload':
+                if message=='rce-mode':
+                    if data=='y':
+                        command=input('Enter command->')
+                        self.client_socket.send(self.encryption.encrypt(command).encode())
+                        print(f"Command succesfully executed on {self.host}\n")
+                        print(self.encryption.decrypt(self.client_socket.recv(2048).decode()))
+                    else:
+                        print('>rce-mode request denied by server.')
+                elif message=='ft-mode-upload':
                     if data =='y':
                         SIZE = 1024
                         FORMAT = "utf-8"

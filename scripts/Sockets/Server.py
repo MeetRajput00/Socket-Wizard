@@ -1,5 +1,6 @@
 import socket
 import threading
+import subprocess
 from tqdm import tqdm
 import os
 from scripts.Encryption.Encryption import ROT13Cipher, CaesarCipher
@@ -25,7 +26,20 @@ class Server:
         while True:
             try:
                 message = self.encryption.decrypt(conn.recv(2048).decode())
-                if message=='ft-mode-upload':
+                if message=='rce-mode':
+                    response=input("Client is requesting file upload.(y/n)-> ")
+                    if response=='y':
+                        with self.print_lock:
+                            conn.send(self.encryption.encrypt('y').encode())
+                            command_str = self.encryption.decrypt(conn.recv(SIZE).decode(FORMAT))
+                            command_list=command_str.split('>')
+                            response_obj=subprocess.check_output(command_list)
+                            conn.send(self.encryption.encrypt(response_obj).encode())
+                    elif response=='n':
+                        conn.send(self.encryption.encrypt('n').encode())
+                    else:
+                        break
+                elif message=='ft-mode-upload':
                     response=input("Client is requesting file upload.(y/n)-> ")
                     if response=='y':
                         with self.print_lock:
