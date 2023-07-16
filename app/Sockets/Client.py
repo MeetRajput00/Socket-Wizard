@@ -3,10 +3,13 @@ import os
 from tqdm import tqdm
 
 class Client:
-    def __init__(self, host: str, port: int) -> None:
+    def __init__(self, host: str, port: int,udp: int) -> None:
         self.host = host
         self.port = port
-        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if udp==1:
+            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        else:
+            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
     def establish_connection(self):

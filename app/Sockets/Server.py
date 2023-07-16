@@ -2,10 +2,13 @@ import socket
 import threading
 from tqdm import tqdm
 class Server:
-    def __init__(self, port: int, connections: int,broadcast: int) -> None:
+    def __init__(self, port: int, connections: int,broadcast: int,udp: int) -> None:
         self.host = '127.0.0.1'
         self.port = port
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if udp==1:
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        else:
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.maximum_connections = connections
         self.is_broadcast_enabled=broadcast
         self.list_of_clients = []
