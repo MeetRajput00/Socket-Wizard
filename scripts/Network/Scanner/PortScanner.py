@@ -1,6 +1,7 @@
 import socket
 from datetime import datetime
-
+import subprocess
+import re
 class PortScanner:
     def __init__(self,target:str,ports:str,common_ports:int) -> None:
         self.target=socket.gethostbyname(target)
@@ -14,16 +15,18 @@ class PortScanner:
         print("[+] Target: " + self.target)
         start_time=datetime.now()
         print(f'[+] Scanning started at {start_time}\n')
+        print('Port \t State \t Service')
         for port in self.ports:
             try:
                 s = socket.socket()
                 response=s.connect_ex((self.target, int(port)))
                 if response==0:
-                    print("[+] Port " + str(port) + ": open "+f'\t {self.service(port)}')
+                    print(str(port) + " \t open "+f'\t {self.service(port)}')
                 s.close()
             except Exception as e:
                 pass
         stop_time=datetime.now()
+        print(f'\n[+] OS detected: {self.get_os_from_ttl(self.send_icmp_packet(self.target))}')
         print(f'[+] Scanning finished at {stop_time}')
         print(f'[+] Scanning duaring: {stop_time-start_time}')
     
@@ -144,3 +147,90 @@ class PortScanner:
             return service_list[port]
         except:
             return "unknown"
+    
+    def send_icmp_packet(self,destination_address:str):
+        result = subprocess.run(['ping', destination_address], capture_output=True, text=True)
+        output = result.stdout
+
+        # Extract the TTL value using regular expression
+        ttl_match = re.search(r'TTL=(\d+)', output)
+        if ttl_match:
+            ttl = int(ttl_match.group(1))
+            return ttl
+
+        return None
+    
+    def get_os_from_ttl(self,ttl:int):
+        os_dict = {
+            60: 'AIX',
+            30: 'AIX',
+            255: 'AIX',
+            255: 'BSDI',
+            64: 'Compa',
+            254: 'Cisco',
+            30: 'DEC Pathworks',
+            64: 'Foundry',
+            64: 'FreeBSD',
+            255: 'FreeBSD',
+            64: 'HP-UX',
+            64: 'HP-UX',
+            255: 'HP-UX',
+            255: 'HP-UX',
+            64: 'Irix',
+            64: 'Irix',
+            255: 'Irix',
+            64: 'juniper',
+            200: 'MPE/IX (HP)',
+            64: 'Linux',
+            255: 'Linux',
+            255: 'Linux',
+            64: 'MacOS/MacTCP',
+            64: 'MacOS/MacTCP',
+            255: 'NetBSD',
+            64: 'Netgear FVG318',
+            255: 'OpenBSD',
+            255: 'OpenVMS',
+            64: 'OS/2',
+            60: 'OSF/1',
+            30: 'OSF/1',
+            255: 'Solaris',
+            64: 'Solaris',
+            255: 'Stratus',
+            30: 'Stratus',
+            64: 'Stratus',
+            60: 'SunOS',
+            255: 'SunOS',
+            60: 'Ultrix',
+            30: 'Ultrix',
+            255: 'Ultrix',
+            64: 'VMS/Multinet',
+            60: 'VMS/TCPware',
+            64: 'VMS/TCPware',
+            128: 'VMS/Wollongong',
+            30: 'VMS/Wollongong',
+            128: 'VMS/UCX',
+            32: 'Windows for Workgroups',
+            32: 'Windows 95',
+            32: 'Windows 98',
+            128: 'Windows 98',
+            128: 'Windows 98',
+            128: 'Windows NT 3.51',
+            128: 'Windows NT 4.0',
+            32: 'Windows NT 4.0',
+            128: 'Windows NT 4.0',
+            128: 'Windows NT 4.0',
+            128: 'Windows ME',
+            128: 'Windows 2000 pro',
+            128: 'Windows 2000 family',
+            128: 'Windows Server 2003',
+            128: 'Windows XP',
+            128: 'Windows Vista',
+            128: 'Windows 7',
+            128: 'Windows Server 2008',
+            128: 'Windows 10'
+        }
+
+        os = os_dict.get(ttl)
+        return os
+
+

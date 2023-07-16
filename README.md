@@ -1,7 +1,7 @@
 
 # Ports
 
-Ports is a cli tool developed using python. It's current functionality includes creating a server and a client for given host and port. It is a tool currently in development and will include many more features including multi threaded web server etc.
+Port" is a CLI tool developed using Python, designed specifically for educational purposes. It showcases various socket programming techniques by providing functionality to create a server and a client for a given host and port. As a work in progress, Ports aims to expand its feature set to include additional capabilities, such as a multi-threaded web server. The primary goal of the tool is to serve as a learning resource for individuals interested in understanding and implementing different aspects of socket programming.
 
 
 ## Features
