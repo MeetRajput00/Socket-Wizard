@@ -26,6 +26,8 @@ def get_client_info():
 def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536'):
     port_scanner=PortScanner(target=target,ports=ports)
     port_scanner.port_scanner()
+
 if __name__ == "__main__":
     ascii_banner=pyfiglet.figlet_format("PORTS")
+    print(ascii_banner)
     app()    
