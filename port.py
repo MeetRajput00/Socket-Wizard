@@ -1,10 +1,11 @@
 import typer
 import pyfiglet
 from typing import Optional
-from app.Sockets.Server import Server
-from app.Sockets.Client import Client
-from app.Network.Lookup.IP import IP
-from app.Network.Scanner.PortScanner import PortScanner
+from scripts.Sockets.Server import Server
+from scripts.Sockets.Client import Client
+from scripts.Network.Lookup.IP import IP
+from scripts.Network.Scanner.PortScanner import PortScanner
+
 app = typer.Typer()
 
 @app.command("server")

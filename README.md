@@ -10,10 +10,11 @@ Ports is a cli tool developed using python. It's current functionality includes 
 - Get IP/Host info
 - Chatroom Update
 - Port Scanner
+- File Transfer Application
+- TCP/UDP server client support
 
 ## Future updates
 
-- File Transfer Application
 - Real-Time Data Streaming
 - Remote Code Execution
 - P2P File Sharing
