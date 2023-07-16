@@ -5,7 +5,17 @@ class ProxyServer:
     def __init__(self,port):
         self.host = '127.0.0.1'
         self.port = port
+    def parse_headers(header_string):
+        headers = {}
 
+        lines = header_string.split('\n')
+        for line in lines:
+            line = line.strip()
+            if line:
+                key, value = line.split(':', 1)
+                headers[key.strip()] = value.strip()
+
+        return headers
     def start(self):
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.bind((self.host, self.port))
