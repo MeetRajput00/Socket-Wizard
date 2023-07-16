@@ -9,6 +9,7 @@ Ports is a cli tool developed using python. It's current functionality includes 
 - Server/Client chat application
 - Get IP/Host info
 - Chatroom Update
+- Port Scanner
 
 ## Future updates
 
