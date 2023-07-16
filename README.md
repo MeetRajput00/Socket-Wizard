@@ -13,11 +13,11 @@ Ports is a cli tool developed using python. It's current functionality includes 
 - File Transfer Application
 - TCP/UDP server client support
 - Caesar Cipher and ROT13 encryption added
+- Remote Code Execution
 
 ## Future updates
 
 - Real-Time Data Streaming
-- Remote Code Execution
 - P2P File Sharing
 - Multiplayer Game
 - Remote Desktop Control

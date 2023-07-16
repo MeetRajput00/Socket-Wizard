@@ -8,7 +8,7 @@ class Client:
         self.host = host
         self.port = port
         if encryption=='caesar-cipher':
-            self.encryption=CaesarCipher(shift=25)
+            self.encryption=CaesarCipher(shift=3)
         else:
             self.encryption=ROT13Cipher()
         if udp==1:
