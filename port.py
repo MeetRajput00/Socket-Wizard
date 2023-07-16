@@ -24,8 +24,8 @@ def get_client_info():
     print(f'IP: {ip.get_ip_address()}\t Host: {ip.get_hostname()}')
 
 @app.command('scan')
-def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536'):
-    port_scanner=PortScanner(target=target,ports=ports)
+def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536',commonPorts:Optional[int]=0):
+    port_scanner=PortScanner(target=target,ports=ports,common_ports=commonPorts)
     port_scanner.port_scanner()
 
 if __name__ == "__main__":
