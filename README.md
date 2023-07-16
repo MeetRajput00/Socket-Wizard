@@ -12,6 +12,7 @@ Ports is a cli tool developed using python. It's current functionality includes 
 - Port Scanner
 - File Transfer Application
 - TCP/UDP server client support
+- Caesar Cipher and ROT13 encryption added
 
 ## Future updates
 

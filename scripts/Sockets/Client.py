@@ -1,11 +1,16 @@
 import socket
 import os
 from tqdm import tqdm
+from scripts.Encryption.Encryption import ROT13Cipher, CaesarCipher
 
 class Client:
-    def __init__(self, host: str, port: int,udp: int) -> None:
+    def __init__(self, host: str, port: int,udp: int,encryption: str) -> None:
         self.host = host
         self.port = port
+        if encryption=='caesar-cipher':
+            self.encryption=CaesarCipher(shift=25)
+        else:
+            self.encryption=ROT13Cipher()
         if udp==1:
             self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         else:
@@ -16,13 +21,13 @@ class Client:
         try:
             self.client_socket.connect((self.host, self.port))
             print("----for file transfer: send ft-mode to server----")
-            print(self.client_socket.recv(2048).decode())
+            print(f'[+]{self.host} connected.')
 
             while True:
                 message = input(" -> ")
 
-                self.client_socket.send(message.encode())
-                data = self.client_socket.recv(2048).decode()
+                self.client_socket.send(self.encryption.encrypt(message).encode())
+                data = self.encryption.decrypt(self.client_socket.recv(2048).decode())
                 if message=='ft-mode-upload':
                     if data =='y':
                         SIZE = 1024
@@ -31,8 +36,8 @@ class Client:
                         FILESIZE = os.path.getsize(FILENAME)
 
                         data = f"{FILENAME}_{FILESIZE}"
-                        self.client_socket.send(data.encode(FORMAT))
-                        msg = self.client_socket.recv(SIZE).decode(FORMAT)
+                        self.client_socket.send(self.encryption.encrypt(data).encode(FORMAT))
+                        msg = self.encryption.decrypt(self.client_socket.recv(SIZE).decode(FORMAT))
                         print(f"SERVER: {msg}")
 
                         bar = tqdm(total=FILESIZE,initial=0, desc=f"Sending {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
@@ -58,8 +63,8 @@ class Client:
                         FILENAME=input("Enter file path->")
 
                         data = f"{FILENAME}"
-                        self.client_socket.send(data.encode(FORMAT))
-                        msg = self.client_socket.recv(SIZE).decode(FORMAT)
+                        self.client_socket.send(self.encryption.encrypt(data).encode(FORMAT))
+                        msg = self.encryption.decrypt(self.client_socket.recv(SIZE).decode(FORMAT))
                         print(f"SERVER: {msg}")
 
                         bar = tqdm(total=FILESIZE,initial=0, desc=f"Sending {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)

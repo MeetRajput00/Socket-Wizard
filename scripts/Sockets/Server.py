@@ -2,11 +2,16 @@ import socket
 import threading
 from tqdm import tqdm
 import os
+from scripts.Encryption.Encryption import ROT13Cipher, CaesarCipher
 
 class Server:
-    def __init__(self, port: int, connections: int,broadcast: int,udp: int) -> None:
+    def __init__(self, port: int, connections: int,broadcast: int,udp: int,encryption: str) -> None:
         self.host = '127.0.0.1'
         self.port = port
+        if encryption=='caesar-cipher':
+            self.encryption=CaesarCipher(shift=25)
+        else:
+            self.encryption=ROT13Cipher()
         if udp==1:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         else:
@@ -17,23 +22,21 @@ class Server:
         self.print_lock = threading.Lock()
 
     def client_thread(self, conn: socket.socket, addr: tuple) -> None:
-        conn.send("Welcome to this chatroom!".encode())
-
         while True:
             try:
-                message = conn.recv(2048).decode()
+                message = self.encryption.decrypt(conn.recv(2048).decode())
                 if message=='ft-mode-upload':
                     response=input("Client is requesting file upload.(y/n)-> ")
                     if response=='y':
                         with self.print_lock:
-                            conn.send('y'.encode())
+                            conn.send(self.encryption.encrypt('y').encode())
                             SIZE = 1024
                             FORMAT = "utf-8"
-                            data = conn.recv(SIZE).decode(FORMAT)
+                            data = self.encryption.decrypt(conn.recv(SIZE).decode(FORMAT))
                             item = data.split("_")
                             FILENAME = item[0]
                             FILESIZE = int(item[1])
-                            conn.send(f'{FILENAME}_{FILESIZE}'.encode(FORMAT))
+                            conn.send(self.encryption.encrypt(f'{FILENAME}_{FILESIZE}').encode(FORMAT))
                             bar = tqdm(total=FILESIZE,initial=0,desc=f"Receiving {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
                             with open(f"recv_{FILENAME}", "wb") as f:
                                 while True:
@@ -46,26 +49,26 @@ class Server:
                             
                             print("File received.")
                     elif response=='n':
-                        conn.send('n'.encode())
+                        conn.send(self.encryption.encrypt('n').encode())
                     else:
                         break
                 elif message=='ft-mode-download':
                     response=input("Client is requesting file download.(y/n)-> ")
                     if response=='y':
                         with self.print_lock:
-                            conn.send('y'.encode())
+                            conn.send(self.encryption.encrypt('y').encode())
                             SIZE = 1024
                             FORMAT = "utf-8"
-                            FILENAME = conn.recv(SIZE).decode(FORMAT)
+                            FILENAME = self.encryption.decrypt(conn.recv(SIZE).decode(FORMAT))
                             FILESIZE = os.path.getsize(FILENAME)
-                            conn.send(f'{FILENAME}_{FILESIZE}'.encode(FORMAT))
+                            conn.send(self.encryption.encrypt(f'{FILENAME}_{FILESIZE}').encode(FORMAT))
                             bar = tqdm(total=FILESIZE,initial=0,desc=f"Receiving {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
                             with open(FILENAME, "rb") as f:
                                 while True:
                                     data = f.read(SIZE)
                         
                                     if not data:
-                                        conn.send('\eof'.encode(FORMAT))
+                                        conn.send(self.encryption.encrypt('\eof').encode(FORMAT))
                                         break
                         
                                     conn.send(data)
@@ -73,7 +76,7 @@ class Server:
                                     bar.update(len(data))
                             print('File sent.')
                     elif response=='n':
-                        conn.send('n'.encode())
+                        conn.send(self.encryption.encrypt('n').encode())
                     else:
                         break
                 elif message:
@@ -81,7 +84,7 @@ class Server:
                     if(self.is_broadcast_enabled==1):
                         self.broadcast(message, conn)
                     message_to_send = input("->")
-                    conn.send(message_to_send.encode())
+                    conn.send(self.encryption.encrypt(message_to_send).encode())
                     if(self.is_broadcast_enabled==1):
                         self.broadcast(message_to_send,conn)
 

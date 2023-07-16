@@ -9,13 +9,13 @@ from scripts.Network.Scanner.PortScanner import PortScanner
 app = typer.Typer()
 
 @app.command("server")
-def start_server(port: Optional[int]=12345,connections: Optional[int]=5,broadcast: Optional[int]=0,udp: Optional[int]=0):
-    server=Server(port=port,connections=connections,broadcast=broadcast,udp=udp)
+def start_server(port: Optional[int]=12345,connections: Optional[int]=5,broadcast: Optional[int]=0,udp: Optional[int]=0,encryption: Optional[str]='ROT13'):
+    server=Server(port=port,connections=connections,broadcast=broadcast,udp=udp,encryption=encryption)
     server.start_server()
 
 @app.command("client")
-def start_client(host: Optional[str]='127.0.0.1', port: Optional[int]=12345,udp: Optional[int]=0):
-    client=Client(host=host, port=port,udp=udp)
+def start_client(host: Optional[str]='127.0.0.1', port: Optional[int]=12345,udp: Optional[int]=0,encryption: Optional[str]='ROT13'):
+    client=Client(host=host, port=port,udp=udp,encryption=encryption)
     client.establish_connection()
 
 @app.command("myIP")
