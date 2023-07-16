@@ -1,6 +1,8 @@
 import socket
 import threading
 from tqdm import tqdm
+import os
+
 class Server:
     def __init__(self, port: int, connections: int,broadcast: int,udp: int) -> None:
         self.host = '127.0.0.1'
@@ -20,8 +22,8 @@ class Server:
         while True:
             try:
                 message = conn.recv(2048).decode()
-                if message=='ft-mode':
-                    response=input("Client is requesting file transfer.(y/n)-> ")
+                if message=='ft-mode-upload':
+                    response=input("Client is requesting file upload.(y/n)-> ")
                     if response=='y':
                         with self.print_lock:
                             conn.send('y'.encode())
@@ -43,6 +45,33 @@ class Server:
                                     bar.update(len(data))
                             
                             print("File received.")
+                    elif response=='n':
+                        conn.send('n'.encode())
+                    else:
+                        break
+                elif message=='ft-mode-download':
+                    response=input("Client is requesting file download.(y/n)-> ")
+                    if response=='y':
+                        with self.print_lock:
+                            conn.send('y'.encode())
+                            SIZE = 1024
+                            FORMAT = "utf-8"
+                            FILENAME = conn.recv(SIZE).decode(FORMAT)
+                            FILESIZE = os.path.getsize(FILENAME)
+                            conn.send(f'{FILENAME}_{FILESIZE}'.encode(FORMAT))
+                            bar = tqdm(total=FILESIZE,initial=0,desc=f"Receiving {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
+                            with open(FILENAME, "rb") as f:
+                                while True:
+                                    data = f.read(SIZE)
+                        
+                                    if not data:
+                                        conn.send('\eof'.encode(FORMAT))
+                                        break
+                        
+                                    conn.send(data)
+                        
+                                    bar.update(len(data))
+                            print('File sent.')
                     elif response=='n':
                         conn.send('n'.encode())
                     else:

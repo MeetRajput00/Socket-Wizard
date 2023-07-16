@@ -23,7 +23,7 @@ class Client:
 
                 self.client_socket.send(message.encode())
                 data = self.client_socket.recv(2048).decode()
-                if message=='ft-mode':
+                if message=='ft-mode-upload':
                     if data =='y':
                         SIZE = 1024
                         FORMAT = "utf-8"
@@ -50,7 +50,32 @@ class Client:
                                 bar.update(len(data))
                         print('File sent.')
                     else:
-                        print(">ft-mode request denied by server.")
+                            print(">ft-mode-download request denied by server.")
+                elif message=='ft-mode-download':
+                    if data =='y':
+                        SIZE = 1024
+                        FORMAT = "utf-8"
+                        FILENAME=input("Enter file path->")
+
+                        data = f"{FILENAME}"
+                        self.client_socket.send(data.encode(FORMAT))
+                        msg = self.client_socket.recv(SIZE).decode(FORMAT)
+                        print(f"SERVER: {msg}")
+
+                        bar = tqdm(total=FILESIZE,initial=0, desc=f"Sending {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
+
+                        with open(f"recv_{FILENAME}", "wb") as f:
+                            while True:
+                                data = self.client_socket.recv(SIZE).decode(FORMAT)               
+                                if data=='\eof':
+                                    break
+                                f.write(data.encode(FORMAT))
+                    
+                                bar.update(len(data))
+                        
+                        print("File received.")
+                    else:
+                        print(">ft-mode-download request denied by server.")
                 else:
                     print('Received from server: ' + data)
 
