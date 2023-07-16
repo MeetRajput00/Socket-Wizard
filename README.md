@@ -40,6 +40,14 @@ To create a Client
 ```
 py port.py client --host <host-name> --port <port-number>
 ```
+To find your IP and hostname
+```
+py port.py myIP
+```
+To do a port scan
+```
+py port.py scan --target <target-ip> --ports <firstPort-lastPort>
+```
 
 
 ## Contributing

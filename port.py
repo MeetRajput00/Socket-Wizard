@@ -3,8 +3,8 @@ import pyfiglet
 from typing import Optional
 from app.Sockets.Server import Server
 from app.Sockets.Client import Client
-from app.Network.IP import IP
-
+from app.Network.Lookup.IP import IP
+from app.Network.Scanner.PortScanner import PortScanner
 app = typer.Typer()
 
 @app.command("server")
@@ -22,7 +22,10 @@ def get_client_info():
     ip=IP()
     print(f'IP: {ip.get_ip_address()}\t Host: {ip.get_hostname()}')
 
-
+@app.command('scan')
+def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536'):
+    port_scanner=PortScanner(target=target,ports=ports)
+    port_scanner.port_scanner()
 if __name__ == "__main__":
     ascii_banner=pyfiglet.figlet_format("PORTS")
     app()    
