@@ -1,4 +1,5 @@
 import typer
+import pyfiglet
 from typing import Optional
 from app.Sockets.Server import Server
 from app.Sockets.Client import Client
@@ -23,4 +24,5 @@ def get_client_info():
 
 
 if __name__ == "__main__":
+    ascii_banner=pyfiglet.figlet_format("PORTS")
     app()    
