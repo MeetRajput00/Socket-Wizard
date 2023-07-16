@@ -5,6 +5,8 @@ from scripts.Sockets.Server import Server
 from scripts.Sockets.Client import Client
 from scripts.Network.Lookup.IP import IP
 from scripts.Network.Scanner.PortScanner import PortScanner
+from scripts.Network.Proxy.ProxyServer import ProxyServer
+
 app = typer.Typer()
 
 @app.command("server")
@@ -22,10 +24,15 @@ def get_client_info():
     ip=IP()
     print(f'IP: {ip.get_ip_address()}\t Host: {ip.get_hostname()}')
 
-@app.command('scan')
+@app.command('port-scan')
 def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536'):
     port_scanner=PortScanner(target=target,ports=ports)
     port_scanner.port_scanner()
+
+@app.command('start-proxy-server')
+def start_proxy_server(port:Optional[int]=12345):
+    proxy_server=ProxyServer(port=port)
+    proxy_server.start()
 
 if __name__ == "__main__":
     ascii_banner=pyfiglet.figlet_format("PORTS")

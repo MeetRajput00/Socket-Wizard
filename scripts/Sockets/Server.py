@@ -12,7 +12,6 @@ class Server:
         self.print_lock = threading.Lock()
 
     def client_thread(self, conn: socket.socket, addr: tuple) -> None:
-        conn.send("Welcome to this chatroom!".encode())
 
         while True:
             try:

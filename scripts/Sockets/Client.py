@@ -13,7 +13,7 @@ class Client:
         try:
             self.client_socket.connect((self.host, self.port))
             print("----for file transfer: send ft-mode to server----")
-            print(self.client_socket.recv(2048).decode())
+            print(f'[+]{self.host} connected.')
 
             while True:
                 message = input(" -> ")
