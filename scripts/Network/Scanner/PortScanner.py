@@ -1,4 +1,5 @@
 import socket
+from datetime import datetime
 
 class PortScanner:
     def __init__(self,target:str,ports:str) -> None:
@@ -7,15 +8,18 @@ class PortScanner:
         self.ports=list(range(int(ports_range[0]), int(ports_range[1]) + 1))
 
     def port_scanner(self):
+        print("[+] Target: " + self.target)
+        start_time=datetime.now()
+        print(f'[+] Scanning started at {start_time}\n')
         for port in self.ports:
             try:
-                print("[+] Connecting to: " + self.target + " port:" + str(port))
                 s = socket.socket()
-                s.connect((self.target, int(port)))
-                s.send('not_imp'.encode())
-                banner = s.recv(1024).decode()
-                if banner:
-                    print("[+] Port " + str(port) + " open [+] \n" + banner)
-                    s.close()
+                response=s.connect_ex((self.target, int(port)))
+                if response==0:
+                    print("[+] Port " + str(port) + ": open ")
+                s.close()
             except Exception as e:
                 pass
+        stop_time=datetime.now()
+        print(f'[+] Scanning finished at {stop_time}')
+        print(f'[+] Scanning duaring: {stop_time-start_time}')
