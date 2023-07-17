@@ -1,7 +1,7 @@
 
 # Ports
 
-Port is a CLI tool developed using Python, designed specifically for educational purposes. It showcases various socket programming techniques by providing functionality to create a server and a client for a given host and port. As a work in progress, Ports aims to expand its feature set to include additional capabilities, such as a multi-threaded web server. The primary goal of the tool is to serve as a learning resource for individuals interested in understanding and implementing different aspects of socket programming.
+Ports is a CLI tool developed using Python, designed specifically for educational purposes. It showcases various socket programming techniques by providing functionality to create a server and a client for a given host and port. As a work in progress, Ports aims to expand its feature set to include additional capabilities, such as a multi-threaded web server. The primary goal of the tool is to serve as a learning resource for individuals interested in understanding and implementing different aspects of socket programming.
 
 
 ## Features
@@ -15,6 +15,7 @@ Port is a CLI tool developed using Python, designed specifically for educational
 - Caesar Cipher and ROT13 encryption added
 - Remote Code Execution
 - OS Detection using TTL
+- Web Directory Enumeration(Threaded)
 
 ## Future updates
 
