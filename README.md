@@ -16,6 +16,7 @@ Ports is a CLI tool developed using Python, designed specifically for educationa
 - Remote Code Execution
 - OS Detection using TTL
 - Web Directory Enumeration(Threaded)
+- Mass IP/Host Scanner
 
 ## Future updates
 
@@ -23,7 +24,6 @@ Ports is a CLI tool developed using Python, designed specifically for educationa
 - P2P File Sharing
 - Multiplayer Game
 - Remote Desktop Control
-- Mass IP/Host Scanner
 
 
 ## Installation

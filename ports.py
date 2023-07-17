@@ -18,11 +18,15 @@ def start_client(host: Optional[str]='127.0.0.1', port: Optional[int]=12345,udp:
     client=Client(host=host, port=port,udp=udp,encryption=encryption)
     client.establish_connection()
 
-@app.command("myIP")
-def get_client_info():
-    ip=IP()
-    print(f'IP: {ip.get_ip_address()}\t Host: {ip.get_hostname()}')
+@app.command("IP")
+def get_client_info(target: Optional[str]='127.0.0.1'):
+    ip=IP(target=target)
+    print(f'IP \t \t \t \t Host ')
+    ip_addresses = ip.get_ip_addresses()
+    hostnames = ip.get_hostnames()
 
+    for i, j in zip(ip_addresses, hostnames):
+        print(f'{i} \t \t {j}')
 @app.command('scan')
 def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536',commonPorts:Optional[int]=0,threads:Optional[int]=5):
     port_scanner=PortScanner(target=target,ports=ports,common_ports=commonPorts,threads=threads)
