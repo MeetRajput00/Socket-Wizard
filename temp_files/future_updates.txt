@@ -79,3 +79,7 @@
 - Encoded exploit
 - Antivirus evasion application
 - Your own metasploit module
+- Real-Time Data Streaming
+- P2P File Sharing
+- Multiplayer Game
+- Remote Desktop Control

@@ -20,10 +20,6 @@ Ports is a CLI tool developed using Python, designed specifically for educationa
 
 ## Future updates
 (This list is updated from https://github.com/kurogai/100-redteam-projects)
-- Real-Time Data Streaming
-- P2P File Sharing
-- Multiplayer Game
-- Remote Desktop Control
 - Recursive Web Directory brute-forcer (Threaded peer recursion)
 - Web Login bruteforce tool
 - FTP Login bruteforce tool
