@@ -5,7 +5,7 @@ from scripts.Sockets.Server import Server
 from scripts.Sockets.Client import Client
 from scripts.Network.Lookup.IP import IP
 from scripts.Network.Scanner.PortScanner import PortScanner
-
+from scripts.Discovery.WebDirectory import WebDirectoryBruteForcer
 app = typer.Typer()
 
 @app.command("server")
@@ -27,6 +27,11 @@ def get_client_info():
 def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536',commonPorts:Optional[int]=0,threads:Optional[int]=5):
     port_scanner=PortScanner(target=target,ports=ports,common_ports=commonPorts,threads=threads)
     port_scanner.port_scanner()
+
+@app.command('web-dir-enum')
+def start_web_dir_enum(target:Optional[str]='127.0.0.1',threads:Optional[int]=5,filterCodes:Optional[str]='200,301'):
+    web_dir_enum=WebDirectoryBruteForcer(target=target,threads=threads,filterCodes=filterCodes)
+    web_dir_enum.brute()
 
 if __name__ == "__main__":
     ascii_banner=pyfiglet.figlet_format("PORTS")

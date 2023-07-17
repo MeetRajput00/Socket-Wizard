@@ -31,7 +31,7 @@ class PortScanner:
         stop_time=datetime.now()
         print(f'\n[+] OS detected: {self.get_os_from_ttl(self.send_icmp_packet(self.target))}')
         print(f'[+] Scanning finished at {stop_time}')
-        print(f'[+] Scanning duaring: {stop_time-start_time}')
+        print(f'[+] Scanning duration: {stop_time-start_time}')
     
     def service(self,port):
         service_list = {1:'tcpmux', 2:'compressnet', 3:'compressnet', 4:'sfs', 5:'rje', 7:'echo', 8:'trojan - Ping Attack',
