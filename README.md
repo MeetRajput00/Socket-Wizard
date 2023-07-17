@@ -24,7 +24,6 @@ Ports is a CLI tool developed using Python, designed specifically for educationa
 - Multiplayer Game
 - Remote Desktop Control
 - Mass IP/Host Scanner
-- Mass Port Scanner
 
 
 ## Installation
