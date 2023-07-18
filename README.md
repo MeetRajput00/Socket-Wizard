@@ -20,7 +20,6 @@ Ports is a CLI tool developed using Python, designed specifically for educationa
 
 ## Future updates
 (This list is updated from https://github.com/kurogai/100-redteam-projects)
-- Recursive Web Directory brute-forcer (Threaded peer recursion)
 - Web Login bruteforce tool
 - FTP Login bruteforce tool
 - SSH Login bruteforce tool 
