@@ -5,9 +5,10 @@ import socket
 import sys
 
 class WebDirectoryBruteForcer:
-    def __init__(self,target:str,threads:int,filterCodes:str) -> None:
+    def __init__(self,target:str,threads:int,filterCodes:str,recursive:int) -> None:
         self.target=target
         self.threads=threads
+        self.recursive=recursive
         self.filter_codes=[]
         for codes in filterCodes.split(','):
             self.filter_codes.append(codes)
@@ -24,8 +25,13 @@ class WebDirectoryBruteForcer:
         try:
             url2='https://'+self.target+"/"+word.strip()
             r=requests.get(url2)
-            if str(r.status_code) in self.match:
+            if str(r.status_code) in self.filter_codes:
                 print(f"/{word.strip():<40}  [ Status: {r.status_code}  Length:{len(r.content)} ]")
+                # Recursively perform enumeration 
+                if self.recursive==1:
+                    for sub_dir in self.dir_enum:
+                        self.get_status_code(word.strip() + '/' + sub_dir.strip())
+                
         except KeyboardInterrupt:
             print("\nReceived Keyboard Interrupt  , Terminating threads\n")
             sys.exit()
@@ -35,10 +41,10 @@ class WebDirectoryBruteForcer:
     def brute(self):
         print("[+] Target: " + self.target)
         print("[+] Filter Status Codes: ",end='')
-        for codes in self.match:
+        for codes in self.filter_codes:
             print(codes,end=',')
         start_time=datetime.now()
-        print(f'[+] Directory enumeration started at {start_time}\n')
+        print(f'\n[+] Directory enumeration started at {start_time}\n')
         with ThreadPoolExecutor(self.threads) as executor:
             executor.map(self.get_status_code,self.dir_enum)
         stop_time=datetime.now()

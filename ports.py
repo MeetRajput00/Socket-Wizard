@@ -33,8 +33,8 @@ def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536',c
     port_scanner.port_scanner()
 
 @app.command('web-dir-enum')
-def start_web_dir_enum(target:Optional[str]='127.0.0.1',threads:Optional[int]=5,filterCodes:Optional[str]='200,301'):
-    web_dir_enum=WebDirectoryBruteForcer(target=target,threads=threads,filterCodes=filterCodes)
+def start_web_dir_enum(target:Optional[str]='127.0.0.1',threads:Optional[int]=5,filterCodes:Optional[str]='200,301',recursive:Optional[int]=0):
+    web_dir_enum=WebDirectoryBruteForcer(target=target,threads=threads,filterCodes=filterCodes,recursive=recursive)
     web_dir_enum.brute()
 
 if __name__ == "__main__":
