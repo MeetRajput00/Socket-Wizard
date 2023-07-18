@@ -58,6 +58,9 @@ py port.py scan --target <target-ip> --ports <firstPort-lastPort>
 
 Contributions are always welcome!
 
+## NOTES
+
+It is Only For Educational Purposes. Neither I Say Nor I Promote To Do Anything Illegal.
 
 ## Authors
 
