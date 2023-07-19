@@ -45,7 +45,7 @@ class WebLogin:
                                                                                                             "password: " \
                                                                                                             "" + password
                     result += "\n[+] --------------------------------------------------------------\n"
-                    with open("./results.txt", "w+") as frr:
+                    with open("./temp_files/results.txt", "w+") as frr:
                         frr.write(result)
                     print(
                         "[+] A Match succeed 'user: " + user + " and password: " + password + "' and have been saved at "
