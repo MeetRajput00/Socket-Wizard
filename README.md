@@ -24,6 +24,11 @@ Socket Wizard is a CLI tool developed using Python, designed specifically for ed
 (This list is updated from https://github.com/kurogai/100-redteam-projects)
 - FTP Login bruteforce tool
 - FTP User footprint
+- MYSQL User footprint
+- Simple Google Bot for web scan
+- Auto website comment bot
+- Auto website message bot
+- Web-scrapping using Regex
 
 
 ## Installation

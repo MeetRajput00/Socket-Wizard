@@ -1,8 +1,3 @@
-- MYSQL User footprint
-- Simple Google Bot for web scan
-- Auto website comment bot
-- Auto website message bot
-- Web-scrapping using Regex
 - Bot to collect information about someone using Google / Bing / Yahoo! 
 - Simple SQLi tester
 - Simple XSS tester
