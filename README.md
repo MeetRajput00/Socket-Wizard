@@ -1,7 +1,7 @@
 
-# Ports
+# Socket Wizard
 
-Ports is a CLI tool developed using Python, designed specifically for educational purposes. It showcases various socket programming techniques by providing functionality to create a server and a client for a given host and port. As a work in progress, Ports aims to expand its feature set to include additional capabilities, such as a multi-threaded web server. The primary goal of the tool is to serve as a learning resource for individuals interested in understanding and implementing different aspects of socket programming.
+Socket Wizard is a CLI tool developed using Python, designed specifically for educational purposes. It showcases various socket programming techniques by providing functionality to create a server and a client for a given host and port. As a work in progress, Ports aims to expand its feature set to include additional capabilities, such as a multi-threaded web server. The primary goal of the tool is to serve as a learning resource for individuals interested in understanding and implementing different aspects of socket programming.
 
 
 ## Features
@@ -28,7 +28,7 @@ Ports is a CLI tool developed using Python, designed specifically for educationa
 
 ## Installation
 
-To use ports, first install all the requirements with pip
+To use Socket Wizard, first install all the requirements with pip
 
 ```bash
   pip install -r requirements.txt
@@ -38,19 +38,19 @@ To use ports, first install all the requirements with pip
 
 To create a Server
 ```
-py port.py server --port <port-number>
+py socketWizard.py server --port <port-number>
 ```
 To create a Client
 ```
-py port.py client --host <host-name> --port <port-number>
+py socketWizard.py client --host <host-name> --port <port-number>
 ```
 To find your IP and hostname
 ```
-py port.py myIP
+py socketWizard.py myIP
 ```
 To do a port scan
 ```
-py port.py scan --target <target-ip> --ports <firstPort-lastPort>
+py socketWizard.py scan --target <target-ip> --ports <firstPort-lastPort>
 ```
 
 
