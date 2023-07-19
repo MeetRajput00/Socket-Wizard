@@ -38,19 +38,19 @@ To use Socket Wizard, first install all the requirements with pip
 
 To create a Server
 ```
-py socketWizard.py server --port <port-number>
+py SocketWizard.py server --port <port-number>
 ```
 To create a Client
 ```
-py socketWizard.py client --host <host-name> --port <port-number>
+py SocketWizard.py client --host <host-name> --port <port-number>
 ```
 To find your IP and hostname
 ```
-py socketWizard.py myIP
+py SocketWizard.py myIP
 ```
 To do a port scan
 ```
-py socketWizard.py scan --target <target-ip> --ports <firstPort-lastPort>
+py SocketWizard.py scan --target <target-ip> --ports <firstPort-lastPort>
 ```
 
 
