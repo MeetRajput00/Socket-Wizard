@@ -6,6 +6,8 @@ from scripts.Sockets.Client import Client
 from scripts.Network.Lookup.IP import IP
 from scripts.Network.Scanner.PortScanner import PortScanner
 from scripts.Discovery.WebDirectory import WebDirectoryBruteForcer
+from scripts.Bruteforce.WebLogin import WebLogin
+
 app = typer.Typer()
 
 @app.command("server")
@@ -36,6 +38,11 @@ def scan_target(target:Optional[str]='127.0.0.1',ports:Optional[str]='1-65536',c
 def start_web_dir_enum(target:Optional[str]='127.0.0.1',threads:Optional[int]=5,filterCodes:Optional[str]='200,301',recursive:Optional[int]=0):
     web_dir_enum=WebDirectoryBruteForcer(target=target,threads=threads,filterCodes=filterCodes,recursive=recursive)
     web_dir_enum.brute()
+
+@app.command('web-login-bruteforce')
+def start_web_login_bruteforcer(threads:Optional[int]=5):
+    bruteForcer=WebLogin(threads=threads)
+    bruteForcer.manual_mode()
 
 if __name__ == "__main__":
     ascii_banner=pyfiglet.figlet_format("PORTS")

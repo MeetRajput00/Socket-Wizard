@@ -1,3 +1,5 @@
 typer
 tqdm
 pyfiglet
+lxml
+beautifulsoup4
