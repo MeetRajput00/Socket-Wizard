@@ -3,3 +3,5 @@ tqdm
 pyfiglet
 lxml
 beautifulsoup4
+paramiko
+requests
