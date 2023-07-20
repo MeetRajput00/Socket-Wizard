@@ -67,9 +67,10 @@ Contributions are always welcome!
 
 It is Only For Educational Purposes. Neither I Say Nor I Promote To Do Anything Illegal.
 
-## Authors
-
-- [@MeetRajput00](https://www.github.com/MeetRajput00)
+## Project Contributors 🧑‍💻
+<a href="https://github.com/MeetRajput00/Socket-Wizard/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=MeetRajput00/Socket-Wizard" />
+</a>
 
 
 ## Feedback
