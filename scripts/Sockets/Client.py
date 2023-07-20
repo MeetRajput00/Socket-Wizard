@@ -20,7 +20,7 @@ class Client:
     def establish_connection(self):
         try:
             self.client_socket.connect((self.host, self.port))
-            print("----for file transfer: send ft-mode to server----")
+            print("----for file transfer: send ft-mode-upload or ft-mode-download to upload files or download files via server respectively----")
             print("----for rce: send rce-mode to server----(Seperate each parameter with a > .e.g. ping>www.google.com or echo>Hello, world)")
             print(f'[+]{self.host} connected.')
 
