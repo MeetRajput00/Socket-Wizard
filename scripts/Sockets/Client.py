@@ -62,6 +62,7 @@ class Client:
                                 self.client_socket.send(data)
                     
                                 bar.update(len(data))
+                        bar.close()
                         print('File sent.')
                     else:
                             print(">ft-mode-download request denied by server.")
@@ -86,6 +87,7 @@ class Client:
                                 f.write(data.encode(FORMAT))
                     
                                 bar.update(len(data))
+                        bar.close()
                         
                         print("File received.")
                     else:
