@@ -8,6 +8,8 @@ from scripts.Network.Scanner.PortScanner import PortScanner
 from scripts.Discovery.WebDirectory import WebDirectoryBruteForcer
 from scripts.Bruteforce.WebLogin import WebLogin
 from scripts.Bruteforce.SSH import SSH
+from scripts.Bruteforce.FTP import FTP
+
 app = typer.Typer()
 
 @app.command("server")
@@ -48,6 +50,11 @@ def start_web_login_bruteforcer(threads:Optional[int]=5):
 def start_ssh_bruteforcer(threads:Optional[int]=5,hostname:Optional[str]='localhost',port:Optional[int]=22):
     ssh=SSH(threads=threads,hostname=hostname,port=port)
     ssh.brute()
+
+@app.command('ftp-bruteforcer')
+def start_ftp_bruteforcer(threads:Optional[int]=5,hostname:Optional[str]='localhost'):
+    ftp=FTP(threads=threads,hostname=hostname)
+    ftp.brute()
 
 if __name__ == "__main__":
     ascii_banner=pyfiglet.figlet_format("PORTS")

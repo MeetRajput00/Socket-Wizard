@@ -19,10 +19,10 @@ Socket Wizard is a CLI tool developed using Python, designed specifically for ed
 - Mass IP/Host Scanner
 - Web Login bruteforce tool (Threaded)
 - SSH Login bruteforce tool (Threaded)
+- FTP Login bruteforce tool (Threaded)
 
 ## Future updates
 (This list is updated from https://github.com/kurogai/100-redteam-projects)
-- FTP Login bruteforce tool
 - FTP User footprint
 - MYSQL User footprint
 - Simple Google Bot for web scan
