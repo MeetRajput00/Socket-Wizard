@@ -58,8 +58,8 @@ class Server:
                                     if data=='\eof':
                                         break
                                     f.write(data.encode(FORMAT))
-                        
                                     bar.update(len(data))
+                            bar.close()
                             
                             print("File received.")
                     elif response=='n':
@@ -88,6 +88,7 @@ class Server:
                                     conn.send(data)
                         
                                     bar.update(len(data))
+                            bar.close()
                             print('File sent.')
                     elif response=='n':
                         conn.send(self.encryption.encrypt('n').encode())
