@@ -76,13 +76,13 @@ class Server:
                             FILENAME = self.encryption.decrypt(conn.recv(SIZE).decode(FORMAT))
                             FILESIZE = os.path.getsize(FILENAME)
                             conn.send(self.encryption.encrypt(f'{FILENAME}_{FILESIZE}').encode(FORMAT))
-                            bar = tqdm(total=FILESIZE,initial=0,desc=f"Receiving {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
+                            bar = tqdm(total=FILESIZE,initial=0,desc=f"Sending {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
                             with open(FILENAME, "rb") as f:
                                 while True:
                                     data = f.read(SIZE)
                         
                                     if not data:
-                                        conn.send(self.encryption.encrypt('\eof').encode(FORMAT))
+                                        conn.send('\eof'.encode(FORMAT))
                                         break
                         
                                     conn.send(data)
