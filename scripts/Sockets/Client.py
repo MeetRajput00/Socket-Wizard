@@ -75,9 +75,9 @@ class Client:
                         data = f"{FILENAME}"
                         self.client_socket.send(self.encryption.encrypt(data).encode(FORMAT))
                         msg = self.encryption.decrypt(self.client_socket.recv(SIZE).decode(FORMAT))
-                        print(f"SERVER: {msg}")
-
-                        bar = tqdm(total=FILESIZE,initial=0, desc=f"Sending {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
+                        item = msg.split("_")
+                        FILESIZE = int(item[1])
+                        bar = tqdm(total=FILESIZE,initial=0, desc=f"Receiving {FILENAME}", unit="B", unit_scale=True, unit_divisor=SIZE)
 
                         with open(f"recv_{FILENAME}", "wb") as f:
                             while True:
@@ -85,7 +85,6 @@ class Client:
                                 if data=='\eof':
                                     break
                                 f.write(data.encode(FORMAT))
-                    
                                 bar.update(len(data))
                         bar.close()
                         
@@ -95,9 +94,9 @@ class Client:
                 else:
                     print('Received from server: ' + data)
 
-            self.client_socket.close()
 
         except Exception as ex:
+            self.client_socket.close()
             print(ex)
             print("Failed to establish connection.")
 
