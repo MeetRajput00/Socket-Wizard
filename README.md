@@ -26,9 +26,10 @@ Socket Wizard is a CLI tool developed using Python, designed specifically for ed
 - FTP User footprint
 - MYSQL User footprint
 - Simple Google Bot for web scan
-- Auto website comment bot
-- Auto website message bot
-- Web-scrapping using Regex
+- Auto website comment bot (Reddit bot)
+- Auto website message bot (Reddit bot)
+- Auto website post bot (Reddit bot)
+- Web-scrapping using Regex (Reddit bot)
 
 
 ## Installation
